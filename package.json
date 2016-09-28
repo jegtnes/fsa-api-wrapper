@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/jegtnes/fsa-api-wrapper/issues"
   },
-  "homepage": "https://github.com/jegtnes/fsa-api-wrapper#readme"
+  "homepage": "https://github.com/jegtnes/fsa-api-wrapper#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "superagent": "^2.3.0"
+  }
 }
