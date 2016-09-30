@@ -10,6 +10,12 @@ router.route('/').get(function(req, res) {
   res.json({message: "hello world"});
 })
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 router.route('/establishments').get(function(req, res) {
   const baseURL = 'http://api.ratings.food.gov.uk/Establishments?'
   let params = '';
