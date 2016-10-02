@@ -34,25 +34,28 @@ router.route('/establishments').get(function(req, res) {
     .get(baseURL + params)
     .set({ 'x-api-version': 2 })
     .end(function(err, superagentResponse) {
+      let establishments = superagentResponse.body.establishments || false;
       if (err) {
         res.status(500).end('errar' + 500);
-      } else if (!superagentResponse.body.establishments || superagentResponse.body.establishments.length === 0) {
+      } else if (!establishments || establishments.length === 0) {
         res.status(204).end('no takeout found');
-      } else if (superagentResponse.body.establishments.length > 1) {
-        console.log(superagentResponse.body.establishments);
-        res.status(400).end('more than 1 takeout found');
       } else {
-        let responseObject = {};
-        console.log(superagentResponse.body.establishments[0]);
-        responseObject.BusinessName = superagentResponse.body.establishments[0].BusinessName;
-        responseObject.RatingValue = superagentResponse.body.establishments[0].RatingValue;
-        responseObject.SchemeType = superagentResponse.body.establishments[0].SchemeType;
-        responseObject.RatingDate = superagentResponse.body.establishments[0].RatingDate;
-        responseObject.NewRatingPending = superagentResponse.body.establishments[0].NewRatingPending;
-        res.status(200).send(responseObject);
+        let response = { establishments: [] }
+        establishments.forEach((establishment) => response.establishments.push(generateResponse(establishment)));
+        res.status(200).send(response);
       }
     });
 })
+
+function generateResponse(establishment) {
+  return {
+    BusinessName: establishment.BusinessName,
+    RatingValue: establishment.RatingValue,
+    SchemeType: establishment.SchemeType,
+    RatingDate: establishment.RatingDate,
+    NewRatingPending: establishment.NewRatingPending,
+  };
+}
 
 app.use('/', router);
 app.listen(4000);
