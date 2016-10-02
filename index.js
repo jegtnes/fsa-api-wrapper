@@ -39,9 +39,16 @@ router.route('/establishments').get(function(req, res) {
       } else if (!superagentResponse.body.establishments) {
         res.status(204).end('no takeout found');
       } else if (superagentResponse.body.establishments.length > 1) {
+        console.log(superagentResponse.body.establishments);
         res.status(400).end('more than 1 takeout found');
       } else {
-        res.status(200).end(superagentResponse.body.establishments[0].RatingValue);
+        let responseObject = {};
+        console.log(superagentResponse.body.establishments[0]);
+        responseObject.RatingValue = superagentResponse.body.establishments[0].RatingValue;
+        responseObject.SchemeType = superagentResponse.body.establishments[0].SchemeType;
+        responseObject.RatingDate = superagentResponse.body.establishments[0].RatingDate;
+        responseObject.NewRatingPending = superagentResponse.body.establishments[0].NewRatingPending;
+        res.status(200).send(responseObject);
       }
     });
 })
