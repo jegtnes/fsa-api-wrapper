@@ -35,11 +35,11 @@ router.route('/establishments').get(function(req, res) {
     .set({ 'x-api-version': 2 })
     .end(function(err, superagentResponse) {
       if (err) {
-        superagentResponse.sendStatus(500).end();
+        res.status(500).end('errar' + 500);
       } else if (!superagentResponse.body.establishments) {
-        superagentResponse.sendStatus(204).end();
+        res.status(204).end('no takeout found');
       } else if (superagentResponse.body.establishments.length > 1) {
-        superagentResponse.sendStatus(400).end();
+        res.status(400).end('more than 1 takeout found');
       } else {
         res.status(200).end(superagentResponse.body.establishments[0].RatingValue);
       }
