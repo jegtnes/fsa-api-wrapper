@@ -36,7 +36,7 @@ router.route('/establishments').get(function(req, res) {
     .end(function(err, superagentResponse) {
       if (err) {
         res.status(500).end('errar' + 500);
-      } else if (!superagentResponse.body.establishments) {
+      } else if (!superagentResponse.body.establishments || superagentResponse.body.establishments.length === 0) {
         res.status(204).end('no takeout found');
       } else if (superagentResponse.body.establishments.length > 1) {
         console.log(superagentResponse.body.establishments);
