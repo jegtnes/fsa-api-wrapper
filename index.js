@@ -44,6 +44,7 @@ router.route('/establishments').get(function(req, res) {
       } else {
         let responseObject = {};
         console.log(superagentResponse.body.establishments[0]);
+        responseObject.BusinessName = superagentResponse.body.establishments[0].BusinessName;
         responseObject.RatingValue = superagentResponse.body.establishments[0].RatingValue;
         responseObject.SchemeType = superagentResponse.body.establishments[0].SchemeType;
         responseObject.RatingDate = superagentResponse.body.establishments[0].RatingDate;
