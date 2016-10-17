@@ -54,6 +54,10 @@ function generateResponse(establishment) {
     SchemeType: establishment.SchemeType,
     RatingDate: establishment.RatingDate,
     NewRatingPending: establishment.NewRatingPending,
+    AddressLine1: establishment.AddressLine1,
+    AddressLine2: establishment.AddressLine2,
+    AddressLine3: establishment.AddressLine3,
+    AddressLine4: establishment.AddressLine4,
   };
 }
 
